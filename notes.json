@@ -1,0 +1,71 @@
+[
+  {
+    "name": "AWS course",
+    "children": [
+      {
+        "title": "AWS Cloud practitioner and Solution architect",
+        "href": "https://share.note.sx/xtq60u11#YdOlEU1jH02BgFaJQ+g836//V1LoNS7K6RYv/Vuzicc"
+      }
+    ]
+  },
+  {
+    "name": "Cloud Database Engineer",
+    "children": [
+      {
+        "title": "Create and Manage AlloyDB Instances",
+        "children": [
+          {
+            "title": "Accelerating Analytical Queries using the AlloyDB Columnar Engine",
+            "href": "https://share.note.sx/bd6aybnd#bQL32BMMTUw3uFA//TdRzhvzfIOHpVmOcDCdJ2VmlWU"
+          },
+          {
+            "title": "Administering an AlloyDB Database",
+            "href": "https://share.note.sx/imnf6nm8#ZZSBUOQIzyARgl8jerVAx31b0kfoI4Ya9rQWaC37umY"
+          },
+          {
+            "title": "Migrating to AlloyDB from PostgreSQL Using PostgreSQL Tools",
+            "href": "https://share.note.sx/1601jf99#R/x90z/pqGOPj4/0NoUd1kVKs7unMqf6MH5lik5McO4"
+          }
+        ]
+      },
+      {
+        "title": "Create and Manage Bigtable Instances",
+        "children": [
+          {
+            "title": "Creating and Populating a Bigtable Instance",
+            "href": "https://share.note.sx/idjcso1h#kd67vV02Ox/W3dg7PElCyTtvcDMXmimsdpUm5UfwtIA"
+          },
+          {
+            "title": "Designing and Querying Bigtable Schemas",
+            "href": "https://share.note.sx/ayp91q32#AxisONx1iKDTGF9ueCNW2dAvkS0//noST1FAW41U5EQ"
+          },
+          {
+            "title": "Monitoring and Managing Bigtable Health and Performance",
+            "href": "https://share.note.sx/q5xmntgt#8OsEyZotfq2ah4etM8evyF5GGKIH1359o3BO/6wlI9s"
+          },
+          {
+            "title": "Streaming Data to Bigtable",
+            "href": "https://share.note.sx/xyc9uqso#rdt/++E/XrR3df86cA7+roEgw8+2af7hC3ScIKIOZ6k"
+          }
+        ]
+      },
+      {
+        "title": "Deploy a Modern Web App connected to a Cloud Spanner Instance -- PCDBE course Lab",
+        "href": "https://share.note.sx/4jkww3o9#jw7xeNLHV/hUEZoEXkijlZt4+rabL1O/+dpjT/6qn3k"
+      },
+      {
+        "title": "Migrate MySQL User Data When Running Database Migration Service Jobs",
+        "href": "https://share.note.sx/kwdh4dmg#xzyNpVDwYBZ4El+GDPjoY1/aECIsK0knwc5CL8eobZY"
+      }
+    ]
+  },
+  {
+    "name": "DBA Essentials",
+    "children": [
+      { "title": "DBA tasks", "href": "https://share.note.sx/zw2sshdt#vk04SLxEBtjkC9wRet2HE8nxEV7c1pdzbraZJaFcMpU" },
+      { "title": "PG DBA", "href": "https://share.note.sx/r5npuqor#SSjnOjzqrm9ySUIxOFiBdIRQqE3lpQYKv+NUZIhvuew" },
+      { "title": "PG vs AWS RDS", "href": "https://share.note.sx/f9kwkl21#Kx7krjFXrYye5Z5ayDPB3ZrMNPX2bsE2R+YHsMsuook" },
+      { "title": "PostgreSQL book", "href": "https://share.note.sx/ordtycn6#R/yvqAzeXvl4M25xqg5UeulgZUgX8Up8xlteKUkvhGs" }
+    ]
+  }
+]

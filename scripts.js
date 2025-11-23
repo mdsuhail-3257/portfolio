@@ -1,74 +1,87 @@
-// updated notes tree data (edit hrefs to your real note links)
-const notes = [
-  {
-    name: 'PostgreSQL',
-    children: [
-      { title: 'Replication Concepts', href: 'https://github.com/mdsuhail-3257/notes/blob/main/PostgreSQL/Replication.md' },
-      { title: 'Query Tuning Basics', href: 'https://github.com/mdsuhail-3257/notes/blob/main/PostgreSQL/QueryTuning.md' },
-      { title: 'VACUUM & Analyze', href: 'https://github.com/mdsuhail-3257/notes/blob/main/PostgreSQL/Vacuum.md' }
-    ]
-  },
-  {
-    name: 'AWS',
-    children: [
-      { title: 'EC2 Basics', href: 'https://github.com/mdsuhail-3257/notes/blob/main/AWS/EC2.md' },
-      { title: 'RDS & Aurora Notes', href: 'https://github.com/mdsuhail-3257/notes/blob/main/AWS/RDS_Aurora.md' }
-    ]
-  },
-  {
-    name: 'Career',
-    children: [
-      { title: 'Resume Framework', href: 'https://github.com/mdsuhail-3257/notes/blob/main/Career/Resume.md' }
-    ]
-  }
-];
+// scripts.js - notes loader + hero interactions
 
+// --- NOTES JSON loader & tree renderer ---
 const root = document.getElementById('tree-root');
 
-function makeSVG() {
+function makeFolderIcon() {
   return `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h4l2 3h10v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7z"></path></svg>`;
 }
 
-function createFolder(node) {
-  const folder = document.createElement('div');
-  folder.className = 'folder';
+function createNode(node) {
+  // node may have children (folder) or href (leaf) or both
+  const wrapper = document.createElement('div');
+  wrapper.className = 'folder';
 
   const title = document.createElement('div');
   title.className = 'folder-title';
-  title.innerHTML = `${makeSVG()}<strong style="color:#e6eef8">${node.name}</strong>`;
-  folder.appendChild(title);
+  title.innerHTML = `${makeFolderIcon()}<strong style="color:#e6eef8">${node.name || node.title}</strong>`;
+  wrapper.appendChild(title);
 
-  const children = document.createElement('div');
-  children.className = 'children';
-  node.children.forEach(ch => {
+  const childrenWrap = document.createElement('div');
+  childrenWrap.className = 'children';
+
+  // If node has direct href (leaf), render as link
+  if (node.href) {
     const a = document.createElement('a');
     a.className = 'note';
-    a.href = ch.href;
+    a.href = node.href;
     a.target = '_blank';
     a.rel = 'noreferrer';
-    a.textContent = ch.title;
-    children.appendChild(a);
-  });
-  folder.appendChild(children);
+    a.textContent = node.title || node.name;
+    childrenWrap.appendChild(a);
+  }
 
-  // collapsed initially
-  children.style.display = 'none';
+  // If node has children, iterate
+  if (node.children && Array.isArray(node.children)) {
+    node.children.forEach(ch => {
+      if (ch.children) {
+        // nested folder
+        const childFolder = createNode(ch);
+        childrenWrap.appendChild(childFolder);
+      } else {
+        const a = document.createElement('a');
+        a.className = 'note';
+        a.href = ch.href;
+        a.target = '_blank';
+        a.rel = 'noreferrer';
+        a.textContent = ch.title;
+        childrenWrap.appendChild(a);
+      }
+    });
+  }
+
+  wrapper.appendChild(childrenWrap);
+
+  // start collapsed
+  childrenWrap.style.display = 'none';
   title.addEventListener('click', () => {
-    const isHidden = children.style.display === 'none';
-    children.style.display = isHidden ? 'block' : 'none';
+    const isHidden = childrenWrap.style.display === 'none';
+    childrenWrap.style.display = isHidden ? 'block' : 'none';
     const svg = title.querySelector('svg');
     if (svg) svg.style.transform = isHidden ? 'rotate(20deg)' : 'rotate(0deg)';
   });
 
-  return folder;
+  return wrapper;
 }
 
-notes.forEach(n => {
-  const f = createFolder(n);
-  root.appendChild(f);
-});
+async function loadNotesJson() {
+  try {
+    const res = await fetch('notes.json', {cache: "no-store"});
+    if (!res.ok) throw new Error('notes.json fetch failed');
+    const notes = await res.json();
+    root.innerHTML = ''; // clear
+    notes.forEach(n => {
+      const nodeEl = createNode(n);
+      root.appendChild(nodeEl);
+    });
+  } catch (err) {
+    console.error('Could not load notes.json', err);
+    root.innerHTML = '<p class="muted">No notes available. Please upload notes.json</p>';
+  }
+}
+loadNotesJson();
 
-// simple parallax on mouse move for hero background keywords
+// --- HERO INTERACTIONS (parallax + avatar hover) ---
 (function heroParallax(){
   const hero = document.querySelector('.hero-bleed');
   if(!hero) return;
@@ -76,10 +89,12 @@ notes.forEach(n => {
     const rect = hero.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
-    const kws = document.querySelectorAll('.kw');
-    kws.forEach((k, i) => {
-      const tx = x * (30 + i*6);
-      const ty = y * (20 + i*6);
+    const kws = document.querySelectorAll('.kw'); // unused but kept if needed
+    // floating logos
+    document.querySelectorAll('.floating-logos .logo').forEach((k, i) => {
+      const mult = 12 + i*4;
+      const tx = x * mult;
+      const ty = y * (12 + i*3);
       k.style.transform = `translate(${tx}px, ${ty}px)`;
     });
   });
